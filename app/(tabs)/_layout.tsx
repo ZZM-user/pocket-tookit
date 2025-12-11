@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { HapticTab } from '@/components/haptic-tab';
 import { useColorScheme } from 'nativewind';
-import { HomeIcon, Telescope } from 'lucide-react-native';
+import { HomeIcon, Telescope, Wrench } from 'lucide-react-native';
 import { Icon } from '@/components/ui/icon';
 import { NAV_THEME } from '@/lib/theme';
 
@@ -22,6 +22,13 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <Icon as={HomeIcon} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="tool"
+        options={{
+          title: 'Tool',
+          tabBarIcon: ({ color }) => <Icon as={Wrench} color={color} />,
         }}
       />
       <Tabs.Screen
