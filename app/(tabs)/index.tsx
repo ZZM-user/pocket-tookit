@@ -1,72 +1,75 @@
 import * as React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { FlatList, View } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Link } from 'expo-router';
 
 const ztListData = [
   {
     id: 1,
     title: '鹅打卡',
-    description: '...',
+    description: '日常打卡工具，帮助记录工作时间',
     pageUrl: '/tools/eclock',
   },
   {
     id: 2,
     title: 'DMP打卡',
-    description: '...',
+    description: '数据管理平台打卡工具',
     pageUrl: '/tools/dmp',
   },
 ];
 
 export default function IndexScreen() {
-
   return (
-    <View className="m-auto flex w-full max-w-sm flex-col gap-6">
-      <Accordion type="single" collapsible className="w-full max-w-lg" defaultValue="item-1">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>
-            <Text>Zenith</Text>
-          </AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-4 text-balance">
-            <FlatList
-              data={ztListData}
-              renderItem={({ item }) => (
-                <Card className="flex flex-col">
-                  <CardHeader>
-                    <CardTitle>{item.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-col gap-4">
-                    <Text>{item.description}</Text>
-                    <Button variant="outline">
-                      <Link href={item.pageUrl}>
-                        <Text>点击前往</Text>
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
-            />
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </View>
+    <ScrollView className="flex-1 bg-background">
+      <View className="px-4 pt-4">
+        <Text className="text-2xl font-bold text-foreground">口袋工具箱</Text>
+        <Text className="mt-1 text-muted-foreground">便捷实用的小工具集合</Text>
+      </View>
+      
+      <View className="px-4 pt-4">
+        <Text className="mb-3 text-lg font-semibold text-foreground">常用工具</Text>
+        <FlatList
+          data={ztListData}
+          renderItem={({ item }) => (
+            <Card className="mb-4 flex flex-col border border-border bg-card shadow-sm">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg">{item.title}</CardTitle>
+                <CardDescription className="text-sm text-muted-foreground">
+                  {item.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <Button className="w-full h-12" variant="outline" asChild>
+                  <Link href={item.pageUrl}>
+                    <Text>立即使用</Text>
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+      
+      <View className="px-4 pt-4 pb-4">
+        <Text className="mb-3 text-lg font-semibold text-foreground">功能介绍</Text>
+        <Card className="border border-border bg-card shadow-sm">
+          <CardContent className="py-4">
+            <Text className="text-muted-foreground">
+              口袋工具箱是一个轻量级工具集合，包含日常工作生活中常用的各类小工具，
+              帮助您提高效率，简化操作。
+            </Text>
+          </CardContent>
+        </Card>
+      </View>
+    </ScrollView>
   );
 }
